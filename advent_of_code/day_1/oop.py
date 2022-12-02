@@ -1,5 +1,5 @@
 """
-OOP solution for day 1
+OOP solution for day 1.
 """
 from __future__ import annotations
 

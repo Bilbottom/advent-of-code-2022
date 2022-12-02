@@ -1,5 +1,5 @@
 """
-Optimal (?) solution for day 1
+Optimal (?) solution for day 1.
 """
 import bisect
 
