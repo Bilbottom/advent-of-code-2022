@@ -15,8 +15,8 @@ ENCODING_PLAYER_1 = {
 }
 ENCODING_PLAYER_2 = {
     "X": "lose",
-    "Y": "paper",
-    "Z": "scissors",
+    "Y": "draw",
+    "Z": "win",
 }
 SCORES = {
     "rock": 1,

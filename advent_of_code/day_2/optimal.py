@@ -1,5 +1,5 @@
 """
-Optimal (?) solution for day 2
+Optimal (?) solution for day 2.
 """
 
 

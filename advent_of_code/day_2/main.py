@@ -18,6 +18,8 @@ C Z
 def read_input() -> str:
     """
     Open the day 1 input file and return its contents.
+
+    https://adventofcode.com/2022/day/2/input
     """
     with open("advent_of_code/day_2/input.csv", "r") as f:
         return f.read().strip()

@@ -1,5 +1,5 @@
 """
-OOP solution for day 2
+OOP solution for day 2.
 """
 from __future__ import annotations
 
@@ -35,6 +35,60 @@ class Hand(enum.Enum):
     def __le__(self, other: Hand):
         return self < other or self == other
 
+    @classmethod
+    def from_opponent_key(cls, opponent_key: str) -> Hand:
+        """
+        Construct a Hand object from the encoded opponent key.
+        """
+        return cls(advent_of_code.day_2.constants.ENCODING_OPPONENT[opponent_key])
+
+    @classmethod
+    def from_player_key(cls, player_key: str) -> Hand:
+        """
+        Construct a Hand object from the encoded player key.
+        """
+        return cls(advent_of_code.day_2.constants.ENCODING_PLAYER_1[player_key])
+
+
+def get_result(opponent: Hand, player: Hand) -> str:
+    """
+    Determine the player's result of the played hands.
+
+    :param opponent: The opponent's hand.
+    :param player: The player's hand.
+    :raises ValueError: If the hands can't be compared.
+    :return: The player's results. One of ``win``, ``draw``, or ``lose``.
+    """
+    if player > opponent:
+        return "win"
+    elif player == opponent:
+        return "draw"
+    elif player < opponent:
+        return "lose"
+    else:
+        raise ValueError(f"Can't compare hands: {player=}, {opponent=}")
+
+
+def get_player_hand(opponent: Hand, result: str) -> Hand:
+    """
+    Determine the player's hand from the result and the opponent's hand.
+
+    :param opponent: The opponent's hand.
+    :param result: The player's result. One of `win`, `draw`, or `lose`.
+    :return: The player's hand, given the opponent's hand and the result.
+    """
+    results: dict[str, str] = {
+        "win": [
+            winner
+            for winner, loser in advent_of_code.day_2.constants.DEFEATS.items()
+            if loser == opponent.value
+        ][0],
+        "draw": opponent.value,
+        "lose": advent_of_code.day_2.constants.DEFEATS[opponent.value],
+    }
+
+    return Hand(results[result])
+
 
 class Round:
     """
@@ -43,40 +97,13 @@ class Round:
     Consists of 2 hands corresponding to the "player" and the "opponent". The
     round has a result and a score for the player.
     """
-    def __init__(self, round_input: str):
-        self._round = round_input
-        self._opponent, self._player = round_input.split()
+    def __init__(self, opponent_hand: Hand, player_hand: Hand, result: str):
+        self.opponent_hand = opponent_hand
+        self.player_hand = player_hand
+        self.result = result
 
     def __repr__(self):
-        return f"Round('{self._round}', {self.opponent=}, {self.player=}, {self.result=}, {self.score=})"
-
-    @property
-    def opponent(self) -> Hand:
-        """
-        The unencoded hand played by the opponent.
-        """
-        return Hand(advent_of_code.day_2.constants.ENCODING_OPPONENT[self._opponent])
-
-    @property
-    def player(self) -> Hand:
-        """
-        The unencoded hand played by the player.
-        """
-        return Hand(advent_of_code.day_2.constants.ENCODING_PLAYER_1[self._player])
-
-    @property
-    def result(self) -> str:
-        """
-        The player's result of this round.
-        """
-        if self.player > self.opponent:
-            return "win"
-        elif self.player == self.opponent:
-            return "draw"
-        elif self.player < self.opponent:
-            return "lose"
-        else:
-            raise ValueError(f"Can't compare hands: {self.player=}, {self.opponent=}")
+        return f"Round({self.opponent_hand=}, {self.player_hand=}, {self.result=}, {self.score=})"
 
     @property
     def score(self) -> int:
@@ -84,18 +111,71 @@ class Round:
         The player's score from this round.
         """
         return sum([
-            advent_of_code.day_2.constants.SCORES[self.player.value],
+            advent_of_code.day_2.constants.SCORES[self.player_hand.value],
             advent_of_code.day_2.constants.SCORES[self.result],
         ])
+
+    @classmethod
+    def from_part_1(cls, round_input: str) -> Round:
+        """
+        Construct a round from a round input string.
+
+        The string will consist of two characters. The first corresponds to the
+        opponent's hand, and the second corresponds to the player's hand.
+
+        :param round_input: The encoded input for the round.
+        :return: A Round object corresponding to the input.
+        """
+        opponent, player = round_input.split()
+        opponent_hand = Hand.from_opponent_key(opponent)
+        player_hand = Hand.from_player_key(player)
+
+        return cls(
+            opponent_hand=opponent_hand,
+            player_hand=player_hand,
+            result=get_result(
+                opponent=opponent_hand,
+                player=player_hand,
+            ),
+        )
+
+    @classmethod
+    def from_part_2(cls, round_input: str) -> Round:
+        """
+        Construct a round from a round input string.
+
+        The string will consist of two characters. The first corresponds to the
+        opponent's hand, and the second corresponds to the player's result.
+
+        :param round_input: The encoded input for the round.
+        :return: A Round object corresponding to the input.
+        """
+        opponent, result = round_input.split()
+        opponent_hand = Hand.from_opponent_key(opponent)
+        decoded_result = advent_of_code.day_2.constants.ENCODING_PLAYER_2[result]
+
+        return cls(
+            opponent_hand=opponent_hand,
+            player_hand=get_player_hand(
+                result=decoded_result,
+                opponent=opponent_hand,
+            ),
+            result=decoded_result,
+        )
 
 
 class Strategy:
     """
     The strategy guide.
     """
-    def __init__(self, strategy_input: str):
-        self._strategy = strategy_input
-        self.rounds = [Round(round_strategy) for round_strategy in strategy_input.split("\n")]
+    def __init__(self, strategy_input: str, part: int):
+        """"""
+        if part == 1:
+            self.rounds = [Round.from_part_1(round_strategy) for round_strategy in strategy_input.split("\n")]
+        elif part == 2:
+            self.rounds = [Round.from_part_2(round_strategy) for round_strategy in strategy_input.split("\n")]
+        else:
+            raise ValueError(f"Bad `part` value. Must be 1 or 2, found {part}.")
 
     def get_total_score(self) -> int:
         """
@@ -104,10 +184,14 @@ class Strategy:
         return sum(rnd.score for rnd in self.rounds)
 
 
-def solution(strategy_input: str) -> int:
+def solution(strategy_input: str) -> list[int]:
     """
     Solve the day 2 problem!
     """
-    strategy = Strategy(strategy_input)
+    strategy_1 = Strategy(strategy_input, 1)
+    strategy_2 = Strategy(strategy_input, 2)
 
-    return strategy.get_total_score()
+    return [
+        strategy_1.get_total_score(),
+        strategy_2.get_total_score(),
+    ]
