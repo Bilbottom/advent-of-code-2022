@@ -23,15 +23,15 @@ SAMPLE_INPUT = """
 9000
 
 10000
-"""
+""".strip()
 
 
 def read_input() -> str:
     """
     Open the day 1 input file and return its contents.
     """
-    with open("advent_of_code/day_1/day-1-input.csv", "r") as f:
-        return f.read()
+    with open("advent_of_code/day_1/input.csv", "r") as f:
+        return f.read().strip()
 
 
 def profile(calorie_input: str) -> None:

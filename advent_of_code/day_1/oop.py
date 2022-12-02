@@ -59,8 +59,14 @@ class Elf:
     def __lt__(self, other: Elf):
         return self.calories < other.calories
 
+    def __le__(self, other: Elf):
+        return self.calories <= other.calories
+
     def __gt__(self, other: Elf):
         return self.calories > other.calories
+
+    def __ge__(self, other: Elf):
+        return self.calories >= other.calories
 
     def __add__(self, other: int):
         return self.calories + other
@@ -78,32 +84,14 @@ class Elf:
         return sum(int(calories) for calories in self.calorie_list.split("\n"))
 
 
-def get_max_elf(list_of_calorie_lists: str) -> Elf:
-    """
-    Answer for part 1.
-    """
-    elves = Elves()
-    [elves.add_elf(elf_list) for elf_list in list_of_calorie_lists.strip().split("\n\n")]
-    return elves.largest_elf
-
-
-def get_total_calories(list_of_calorie_lists: str) -> int:
-    """
-    Answer for part 2.
-    """
-    elves = Elves()
-    [elves.add_elf(elf_list) for elf_list in list_of_calorie_lists.strip().split("\n\n")]
-    return sum(elves.largest_elves)
-
-
 def solution(calorie_input: str) -> list[int]:
     """
     Solve the day 1 problem!
-
-    Note that this is solution aims to be OOP/Pythonic, not an optimal solution
-    for time or space complexity.
     """
+    elves = Elves()
+    [elves.add_elf(elf_list) for elf_list in calorie_input.split("\n\n")]
+
     return [
-        get_max_elf(calorie_input).calories,
-        get_total_calories(calorie_input),
+        elves.largest_elf.calories,
+        sum(elves.largest_elves),
     ]
