@@ -24,8 +24,7 @@ def read_input(use_sample: bool = True) -> str:
     if use_sample:
         return SAMPLE_INPUT.strip()
 
-    with open("advent_of_code/day_2/input.csv", "r") as f:
-        return f.read().strip()
+    return advent_of_code.utils.read_input("day_2")
 
 
 def solution(use_sample: bool = True, profile_solutions: bool = False) -> None:
@@ -34,8 +33,8 @@ def solution(use_sample: bool = True, profile_solutions: bool = False) -> None:
     """
     strategy_input = read_input(use_sample=use_sample)
 
-    print(advent_of_code.day_2.oop.solution(strategy_input=strategy_input))
-    print(advent_of_code.day_2.optimal.solution(strategy_input=strategy_input))
+    print(advent_of_code.day_2.oop.solution(input_=strategy_input))
+    print(advent_of_code.day_2.optimal.solution(input_=strategy_input))
 
     if profile_solutions:
         advent_of_code.utils.profile(

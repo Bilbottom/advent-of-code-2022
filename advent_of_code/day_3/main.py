@@ -27,8 +27,7 @@ def read_input(use_sample: bool = True) -> str:
     if use_sample:
         return SAMPLE_INPUT.strip()
 
-    with open("advent_of_code/day_3/input.csv", "r") as f:
-        return f.read().strip()
+    return advent_of_code.utils.read_input("day_3")
 
 
 def solution(use_sample: bool = True, profile_solutions: bool = False) -> None:
@@ -37,8 +36,8 @@ def solution(use_sample: bool = True, profile_solutions: bool = False) -> None:
     """
     rucksack_input = read_input(use_sample=use_sample)
 
-    print(advent_of_code.day_3.oop.solution(rucksack_input=rucksack_input))
-    print(advent_of_code.day_3.optimal.solution(rucksack_input=rucksack_input))
+    print(advent_of_code.day_3.oop.solution(input_=rucksack_input))
+    print(advent_of_code.day_3.optimal.solution(input_=rucksack_input))
 
     if profile_solutions:
         advent_of_code.utils.profile(

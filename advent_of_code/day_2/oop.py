@@ -184,12 +184,12 @@ class Strategy:
         return sum(rnd.score for rnd in self.rounds)
 
 
-def solution(strategy_input: str) -> list[int]:
+def solution(input_: str) -> list[int]:
     """
     Solve the day 2 problem!
     """
-    strategy_1 = Strategy(strategy_input, 1)
-    strategy_2 = Strategy(strategy_input, 2)
+    strategy_1 = Strategy(input_, 1)
+    strategy_2 = Strategy(input_, 2)
 
     return [
         strategy_1.get_total_score(),

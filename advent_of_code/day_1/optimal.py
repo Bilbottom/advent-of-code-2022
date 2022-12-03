@@ -40,11 +40,11 @@ def get_total_calories(list_of_calorie_lists: str) -> int:
     return sum(top_calories)
 
 
-def solution(calorie_input: str) -> list[int]:
+def solution(input_: str) -> list[int]:
     """
     Solve the day 1 problem!
     """
     return [
-        get_max_elf(calorie_input),
-        get_total_calories(calorie_input),
+        get_max_elf(input_),
+        get_total_calories(input_),
     ]

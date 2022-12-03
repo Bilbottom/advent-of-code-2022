@@ -1,6 +1,8 @@
 """
 OOP solution for day 3.
 """
+import warnings
+
 import advent_of_code.day_3.constants
 
 
@@ -37,6 +39,9 @@ class Group:
     A group of 3 rucksacks.
     """
     def __init__(self, rucksacks: list[Rucksack]):
+        if (length := len(rucksacks)) != 3:
+            warnings.warn(f"Expected 3 Rucksacks, found {length}")
+
         self.rucksacks = rucksacks
 
     def find_badge(self) -> str:
@@ -82,11 +87,11 @@ class Rucksacks:
         )
 
 
-def solution(rucksack_input: str) -> list[int]:
+def solution(input_: str) -> list[int]:
     """
     Solve the day 3 problem!
     """
-    rucksacks = Rucksacks(rucksack_input)
+    rucksacks = Rucksacks(input_)
 
     return [
         rucksacks.sum_shared_item_priorities(),

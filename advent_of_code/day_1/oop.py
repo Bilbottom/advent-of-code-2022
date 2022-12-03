@@ -84,12 +84,12 @@ class Elf:
         return sum(int(calories) for calories in self.calorie_list.split("\n"))
 
 
-def solution(calorie_input: str) -> list[int]:
+def solution(input_: str) -> list[int]:
     """
     Solve the day 1 problem!
     """
     elves = Elves()
-    [elves.add_elf(elf_list) for elf_list in calorie_input.split("\n\n")]
+    [elves.add_elf(elf_list) for elf_list in input_.split("\n\n")]
 
     return [
         elves.largest_elf.calories,
