@@ -43,7 +43,7 @@ def solution(profile_solutions: bool = False) -> None:
     """
     Solve the day 1 problem!
     """
-    calorie_input = read_input()
+    calorie_input = read_input(use_sample=False)
 
     print(advent_of_code.day_1.oop.solution(calorie_input=calorie_input))
     print(advent_of_code.day_1.optimal.solution(calorie_input=calorie_input))
