@@ -5,9 +5,9 @@ import functools
 
 import advent_of_code.day_1.oop
 import advent_of_code.day_1.optimal
-import profiler
+import advent_of_code.utils
 
-USE_SAMPLE = False
+
 SAMPLE_INPUT = """
 1000
 2000
@@ -23,44 +23,39 @@ SAMPLE_INPUT = """
 9000
 
 10000
-""".strip()
+"""
 
 
-def read_input() -> str:
+def read_input(use_sample: bool = True) -> str:
     """
     Open the day 1 input file and return its contents.
 
     https://adventofcode.com/2022/day/1/input
     """
+    if use_sample:
+        return SAMPLE_INPUT.strip()
+
     with open("advent_of_code/day_1/input.csv", "r") as f:
         return f.read().strip()
-
-
-def profile(calorie_input: str) -> None:
-    """
-    Profile different solutions.
-    """
-    functions = {
-        'oop': functools.partial(
-            advent_of_code.day_1.oop.solution,
-            calorie_input=calorie_input,
-        ),
-        'optimal': functools.partial(
-            advent_of_code.day_1.optimal.solution,
-            calorie_input=calorie_input,
-        ),
-    }
-    profiler.time_functions(functions, 1_000)
 
 
 def solution(profile_solutions: bool = False) -> None:
     """
     Solve the day 1 problem!
     """
-    master_list_of_calories = SAMPLE_INPUT if USE_SAMPLE else read_input()
+    calorie_input = read_input()
 
-    print(advent_of_code.day_1.oop.solution(master_list_of_calories))
-    print(advent_of_code.day_1.optimal.solution(master_list_of_calories))
+    print(advent_of_code.day_1.oop.solution(calorie_input))
+    print(advent_of_code.day_1.optimal.solution(calorie_input))
 
     if profile_solutions:
-        profile(master_list_of_calories)
+        advent_of_code.utils.profile(
+            oop_solution=functools.partial(
+                advent_of_code.day_1.oop.solution,
+                calorie_input=calorie_input,
+            ),
+            optimal_solution=functools.partial(
+                advent_of_code.day_1.optimal.solution,
+                calorie_input=calorie_input,
+            ),
+        )
