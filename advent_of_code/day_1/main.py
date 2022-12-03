@@ -45,8 +45,8 @@ def solution(profile_solutions: bool = False) -> None:
     """
     calorie_input = read_input()
 
-    print(advent_of_code.day_1.oop.solution(calorie_input))
-    print(advent_of_code.day_1.optimal.solution(calorie_input))
+    print(advent_of_code.day_1.oop.solution(calorie_input=calorie_input))
+    print(advent_of_code.day_1.optimal.solution(calorie_input=calorie_input))
 
     if profile_solutions:
         advent_of_code.utils.profile(

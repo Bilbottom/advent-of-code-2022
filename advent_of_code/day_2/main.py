@@ -34,17 +34,17 @@ def solution(profile_solutions: bool = False) -> None:
     """
     strategy_input = read_input()
 
-    print(advent_of_code.day_2.oop.solution(strategy_input))
-    print(advent_of_code.day_2.optimal.solution(strategy_input))
+    print(advent_of_code.day_2.oop.solution(strategy_input=strategy_input))
+    print(advent_of_code.day_2.optimal.solution(strategy_input=strategy_input))
 
     if profile_solutions:
         advent_of_code.utils.profile(
             oop_solution=functools.partial(
                 advent_of_code.day_2.oop.solution,
-                calorie_input=strategy_input,
+                strategy_input=strategy_input,
             ),
             optimal_solution=functools.partial(
                 advent_of_code.day_2.optimal.solution,
-                calorie_input=strategy_input,
+                strategy_input=strategy_input,
             ),
         )
