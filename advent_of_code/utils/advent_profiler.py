@@ -14,4 +14,4 @@ def profile(oop_solution: Callable, optimal_solution: Callable) -> None:
         'oop': oop_solution,
         'optimal': optimal_solution,
     }
-    profiler.time_functions(functions, 1_000)
+    profiler.time_functions(functions, 100_000)

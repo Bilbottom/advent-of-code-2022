@@ -28,11 +28,11 @@ def read_input(use_sample: bool = True) -> str:
         return f.read().strip()
 
 
-def solution(profile_solutions: bool = False) -> None:
+def solution(use_sample: bool = True, profile_solutions: bool = False) -> None:
     """
     Solve the day 2 problem!
     """
-    strategy_input = read_input(use_sample=False)
+    strategy_input = read_input(use_sample=use_sample)
 
     print(advent_of_code.day_2.oop.solution(strategy_input=strategy_input))
     print(advent_of_code.day_2.optimal.solution(strategy_input=strategy_input))
