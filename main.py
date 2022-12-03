@@ -5,6 +5,7 @@ https://adventofcode.com/
 """
 import advent_of_code.day_1
 import advent_of_code.day_2
+import advent_of_code.day_3
 
 
 def main() -> None:
@@ -12,7 +13,8 @@ def main() -> None:
     Print the solutions.
     """
     # advent_of_code.day_1.solution(profile_solutions=True)
-    advent_of_code.day_2.solution(profile_solutions=False)
+    # advent_of_code.day_2.solution(profile_solutions=False)
+    advent_of_code.day_3.solution(profile_solutions=False)
 
 
 if __name__ == "__main__":
