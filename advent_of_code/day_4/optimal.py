@@ -1,10 +1,10 @@
 """
-Optimal (?) solution for day 3.
+Optimal (?) solution for day 4.
 """
 
 
 def solution(input_: str) -> list[int]:
     """
-    Solve the day 3 problem!
+    Solve the day 4 problem!
     """
     pass

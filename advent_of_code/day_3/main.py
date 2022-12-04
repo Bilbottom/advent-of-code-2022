@@ -1,5 +1,5 @@
 """
-Day 2: Rock, Paper, Scissors!
+Day 3: Rucksack Reorganization!
 """
 import functools
 
@@ -43,10 +43,10 @@ def solution(use_sample: bool = True, profile_solutions: bool = False) -> None:
         advent_of_code.utils.profile(
             oop_solution=functools.partial(
                 advent_of_code.day_3.oop.solution,
-                rucksack_input=rucksack_input,
+                input_=rucksack_input,
             ),
             optimal_solution=functools.partial(
                 advent_of_code.day_3.optimal.solution,
-                rucksack_input=rucksack_input,
+                input_=rucksack_input,
             ),
         )
