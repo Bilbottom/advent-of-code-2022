@@ -11,7 +11,7 @@ def main() -> None:
     """
     Print the solutions.
     """
-    advent_of_code.utils.create_files(day=5)
+    # advent_of_code.utils.create_files()
 
     advent_of_code.solutions.print_all_solutions(
         print_all=False,

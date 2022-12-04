@@ -1,6 +1,7 @@
 """
 Create the template files for the daily problems.
 """
+import datetime
 import os.path
 
 
@@ -116,9 +117,10 @@ class FileCreator:
         )
 
 
-def create_files(day: int) -> None:
+def create_files(day: int = None) -> None:
     """
     Create the template files for the day.
     """
+    day = day or datetime.datetime.now().day
     file_creator = FileCreator(day)
     file_creator.create_files()
