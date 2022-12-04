@@ -1,3 +1,17 @@
-from advent_of_code.day_3.main import solution
-from advent_of_code.day_3.optimal import solution as solution_optimal
+"""
+Day 3: Rucksack Reorganization!
+
+https://adventofcode.com/2022/day/3/input
+"""
 from advent_of_code.day_3.oop import solution as solution_oop
+from advent_of_code.day_3.optimal import solution as solution_optimal
+
+
+SAMPLE_INPUT = """
+vJrwpWtwJgWrhcsFMMfFFhFp
+jqHRNqRjqzjGDLGLrsFMfFZSrLrFZsSL
+PmmdzqPrVvPwwTWBwg
+wMqvLMZHhHMvwLHjbvcjnnSBnvTQFn
+ttgJtRGJQctTZtZT
+CrZsJsPPZsGzwwsLwLmpwMDw
+"""
