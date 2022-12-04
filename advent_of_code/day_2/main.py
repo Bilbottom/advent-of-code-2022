@@ -31,19 +31,19 @@ def solution(use_sample: bool = True, profile_solutions: bool = False) -> None:
     """
     Solve the day 2 problem!
     """
-    strategy_input = read_input(use_sample=use_sample)
+    input_ = read_input(use_sample=use_sample)
 
-    print(advent_of_code.day_2.oop.solution(input_=strategy_input))
-    print(advent_of_code.day_2.optimal.solution(input_=strategy_input))
+    print(advent_of_code.day_2.oop.solution(input_=input_))
+    print(advent_of_code.day_2.optimal.solution(input_=input_))
 
     if profile_solutions:
         advent_of_code.utils.profile(
             oop_solution=functools.partial(
                 advent_of_code.day_2.oop.solution,
-                strategy_input=strategy_input,
+                strategy_input=input_,
             ),
             optimal_solution=functools.partial(
                 advent_of_code.day_2.optimal.solution,
-                strategy_input=strategy_input,
+                strategy_input=input_,
             ),
         )
