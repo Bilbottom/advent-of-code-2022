@@ -45,6 +45,6 @@ def solution(input_: str) -> list[int]:
     Solve the day 1 problem!
     """
     return [
-        get_max_elf(input_),
-        get_total_calories(input_),
+        get_max_elf(input_.strip()),
+        get_total_calories(input_.strip()),
     ]

@@ -174,7 +174,7 @@ def solution(input_: str) -> list[int]:
     """
     Solve the day 4 problem!
     """
-    assignment_pairs = AssignmentPairs(input_)
+    assignment_pairs = AssignmentPairs(input_.strip())
 
     return [
         assignment_pairs.get_number_of_fully_contained_assignments(),

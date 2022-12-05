@@ -44,7 +44,7 @@ class Solution:
         """
         Print the day's solution!
         """
-        input_ = self.read_input(use_sample=use_sample).strip()
+        input_ = self.read_input(use_sample=use_sample)
 
         print(f"--- Day {self.day:02d} Solution ---")
         print(self.oop_solution(input_=input_))

@@ -91,7 +91,7 @@ def solution(input_: str) -> list[int]:
     """
     Solve the day 3 problem!
     """
-    rucksacks = Rucksacks(input_)
+    rucksacks = Rucksacks(input_.strip())
 
     return [
         rucksacks.sum_shared_item_priorities(),

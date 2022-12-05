@@ -188,8 +188,8 @@ def solution(input_: str) -> list[int]:
     """
     Solve the day 2 problem!
     """
-    strategy_1 = Strategy(input_, 1)
-    strategy_2 = Strategy(input_, 2)
+    strategy_1 = Strategy(input_.strip(), 1)
+    strategy_2 = Strategy(input_.strip(), 2)
 
     return [
         strategy_1.get_total_score(),
