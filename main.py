@@ -14,8 +14,8 @@ def main() -> None:
     # advent_of_code.utils.create_files()
 
     advent_of_code.solutions.print_all_solutions(
-        print_all=True,
-        use_sample=False,
+        print_all=False,
+        use_sample=True,
         profile_solutions=False,
         repeat=10_000,
     )
