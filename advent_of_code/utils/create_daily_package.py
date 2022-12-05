@@ -68,6 +68,7 @@ class FileCreator:
         OOP solution for day {self.day}.
         """
         
+        
         def solution(input_: str) -> list[int]:
             """
             Solve the day {self.day} problem!
@@ -86,6 +87,7 @@ class FileCreator:
         """
         Optimal (?) solution for day {self.day}.
         """
+        
         
         def solution(input_: str) -> list[int]:
             """
