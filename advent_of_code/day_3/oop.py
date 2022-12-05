@@ -2,6 +2,7 @@
 OOP solution for day 3.
 """
 import warnings
+from typing import Any
 
 import advent_of_code.day_3.constants
 
@@ -87,7 +88,7 @@ class Rucksacks:
         )
 
 
-def solution(input_: str) -> list[int]:
+def solution(input_: str) -> list[Any]:
     """
     Solve the day 3 problem!
     """

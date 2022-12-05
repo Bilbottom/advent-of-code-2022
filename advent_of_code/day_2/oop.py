@@ -4,6 +4,7 @@ OOP solution for day 2.
 from __future__ import annotations
 
 import enum
+from typing import Any
 
 import advent_of_code.day_2.constants
 
@@ -184,7 +185,7 @@ class Strategy:
         return sum(rnd.score for rnd in self.rounds)
 
 
-def solution(input_: str) -> list[int]:
+def solution(input_: str) -> list[Any]:
     """
     Solve the day 2 problem!
     """

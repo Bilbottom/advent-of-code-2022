@@ -3,6 +3,8 @@ OOP solution for day 4.
 """
 from __future__ import annotations
 
+from typing import Any
+
 
 class Assignment:
     """
@@ -170,7 +172,7 @@ class AssignmentPairs:
         )
 
 
-def solution(input_: str) -> list[int]:
+def solution(input_: str) -> list[Any]:
     """
     Solve the day 4 problem!
     """

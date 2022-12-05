@@ -2,6 +2,7 @@
 Optimal (?) solution for day 1.
 """
 import bisect
+from typing import Any
 
 
 def _sum_calories(list_of_calories: str) -> int:
@@ -40,7 +41,7 @@ def get_total_calories(list_of_calorie_lists: str) -> int:
     return sum(top_calories)
 
 
-def solution(input_: str) -> list[int]:
+def solution(input_: str) -> list[Any]:
     """
     Solve the day 1 problem!
     """

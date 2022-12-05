@@ -3,6 +3,8 @@ OOP solution for day 1.
 """
 from __future__ import annotations
 
+from typing import Any
+
 
 class Elves:
     """
@@ -84,7 +86,7 @@ class Elf:
         return sum(int(calories) for calories in self.calorie_list.split("\n"))
 
 
-def solution(input_: str) -> list[int]:
+def solution(input_: str) -> list[Any]:
     """
     Solve the day 1 problem!
     """

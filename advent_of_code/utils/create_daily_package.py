@@ -67,9 +67,10 @@ class FileCreator:
         """
         OOP solution for day {self.day}.
         """
+        from typing import Any
         
         
-        def solution(input_: str) -> list[int]:
+        def solution(input_: str) -> list[Any]:
             """
             Solve the day {self.day} problem!
             """
@@ -87,9 +88,10 @@ class FileCreator:
         """
         Optimal (?) solution for day {self.day}.
         """
+        from typing import Any
         
         
-        def solution(input_: str) -> list[int]:
+        def solution(input_: str) -> list[Any]:
             """
             Solve the day {self.day} problem!
             """
