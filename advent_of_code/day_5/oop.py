@@ -24,6 +24,9 @@ class Stack(list):
     def __init__(self, items: list[str]):
         super().__init__(items)
 
+    # def __str__(self):
+    #     return "\n".join(f"[{item}]" for item in self)
+
 
 class Stacks(dict):
     """
