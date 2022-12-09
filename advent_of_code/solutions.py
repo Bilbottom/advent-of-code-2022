@@ -64,11 +64,12 @@ def print_all_solutions(
     use_sample: bool,
     profile_solutions: bool = False,
     repeat: int = 10_000,
+    print_day: int = None,
 ) -> None:
     """
     Print the solutions.
     """
-    day_today = datetime.datetime.now().day
+    day_today = print_day or datetime.datetime.now().day
 
     if print_all:
         for i in range(day_today):
