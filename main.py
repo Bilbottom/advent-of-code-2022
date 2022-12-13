@@ -18,7 +18,7 @@ def main() -> None:
         use_sample=True,
         profile_solutions=False,
         repeat=10_000,
-        print_day=9,
+        print_day=11,
     )
 
 
