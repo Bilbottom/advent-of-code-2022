@@ -4,7 +4,6 @@ OOP solution for day 11.
 from __future__ import annotations
 
 import math
-import pprint
 from typing import Any
 
 
@@ -13,7 +12,7 @@ class Item:
     An item, which just has a worry level.
     """
     def __init__(self, worry_level: int):
-        self.worry_level = worry_level
+        self._worry_level = worry_level
         self.worry_history = [worry_level]
 
     def __str__(self):
@@ -21,6 +20,15 @@ class Item:
 
     def __repr__(self):
         return f"Item(worry_level={self.worry_level})"
+
+    @property
+    def worry_level(self) -> int:
+        return self._worry_level
+
+    @worry_level.setter
+    def worry_level(self, value: int):
+        self._worry_level = value
+        self.worry_history.append(value)
 
 
 class Monkey:
@@ -127,10 +135,11 @@ class Monkey:
         """
         assert item in self.items
         self.inspection_count += 1
-        new_worry_level = (self.evaluate_worry(item.worry_level) // worry_divisor) % total_divisor
 
-        item.worry_level = new_worry_level
-        item.worry_history.append(new_worry_level)
+        # Taking the remainder from total_divisor doesn't impact the divisibility
+        # of the values, but stops them from growing so large that the program
+        # slows to a halt
+        item.worry_level = (self.evaluate_worry(item.worry_level) // worry_divisor) % total_divisor
 
 
 class Rounds:
