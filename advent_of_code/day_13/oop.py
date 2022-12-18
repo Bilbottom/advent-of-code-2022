@@ -7,15 +7,11 @@ import pprint
 from typing import Any
 
 
-def packify(value: Any) -> Packet:
+def list_to_packet(value: Any) -> Packet | int | None:
     if value is None:
         return value
-    elif isinstance(value, list):
-        return Packet(value)
-    elif isinstance(value, int):
-        return value
-    else:
-        return value
+
+    return Packet(value) if isinstance(value, list) else value
 
 
 class Packet(collections.abc.MutableSequence):
@@ -56,35 +52,48 @@ class Packet(collections.abc.MutableSequence):
     def __delitem__(self, i: int):
         del self.data[i]
 
-    def __eq__(self, other: Packet):
+    def __eq__(self, other: Packet | list):
+        other = other if isinstance(other, Packet) else Packet(other)
         return self.data == other.data
 
     def __lt__(self, other: Packet | int):
         """
         Compare 2 packets element-wise.
-
-        TODO: Make this recursive, since we need to compare depths.
         """
         other = other if isinstance(other, Packet) else Packet(other)
 
         # sourcery skip: merge-duplicate-blocks, remove-redundant-if
         for i in range(max(len(self), len(other))):
-            left, right = packify(self.get(i)), packify(other.get(i))
-            print(f"Comparing {left} and {right} ({type(left)} and {type(right)})")
+            left, right = list_to_packet(self.get(i)), list_to_packet(other.get(i))
+            print(f"Compare {left} vs {right}")
+
             if left is None and right is not None:
                 # The left packet is smaller
+                print("Left side ran out of items, so inputs are in the right order")
                 return True
             elif right is None:
                 # The right packet is smaller
-                return False
-            elif left < right:
-                # The left packet is smaller
-                return True
-            elif right < left:
-                # The right packet is smaller
+                print("Right side ran out of items, so inputs are not in the right order")
                 return False
 
-        return True
+            if type(left) != type(right):
+                if isinstance(left, int):
+                    print(f"Mixed types; convert left to [{left}] and retry comparison")
+                    left = Packet([left])
+                elif isinstance(right, int):
+                    print(f"Mixed types; convert right to [{right}] and retry comparison")
+                    right = Packet([right])
+
+            if left < right:
+                # The left packet is smaller
+                print(f"    Left side is smaller, so inputs are in the right order ({left} < {right})")
+                return True
+            elif left > right:
+                # The right packet is smaller
+                print(f"    Right side is smaller, so inputs are not in the right order ({left} > {right})")
+                return False
+
+        return False
 
     def __le__(self, other: Packet):
         return self < other or self == other
@@ -147,20 +156,35 @@ class PacketPair:
         return cls(Packet.from_text(left), Packet.from_text(right))
 
 
+class PacketPairs:
+    def __init__(self, packet_pairs: dict[int, PacketPair]):
+        self.packet_pairs = packet_pairs
+
+    @classmethod
+    def from_text(cls, text: str) -> PacketPairs:
+        return cls({
+            i + 1: PacketPair.from_text(text)
+            for i, text in enumerate(text.split("\n\n"))
+        })
+
+    def pairs_in_correct_order(self) -> int:
+        index_sum = 0
+        for pair, packet_pair in self.packet_pairs.items():
+            packet_1, packet_2 = packet_pair
+            if packet_1 < packet_2:
+                index_sum += pair
+
+        return index_sum
+
+
 def solution(input_: str) -> list[Any]:
     """
     Solve the day 13 problem!
     """
-    packet_pairs = {
-        i: PacketPair.from_text(text)
-        for i, text in enumerate(input_.strip().split("\n\n"))
-    }
+    packet_pairs = PacketPairs.from_text(input_.strip())
     # pprint.pprint(packet_pairs)
 
-    for packet_pair in packet_pairs.values():
-        packet_1, packet_2 = packet_pair
-        print(packet_1, packet_2)
-        print(packet_1 < packet_2, packet_1 > packet_2)
-
-    quit()
-    return [0, 0]
+    return [
+        packet_pairs.pairs_in_correct_order(),
+        0,
+    ]
