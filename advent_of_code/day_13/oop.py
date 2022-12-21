@@ -3,6 +3,7 @@ OOP solution for day 13.
 """
 from __future__ import annotations
 import collections.abc
+import math
 import pprint
 from typing import Any
 
@@ -65,32 +66,32 @@ class Packet(collections.abc.MutableSequence):
         # sourcery skip: merge-duplicate-blocks, remove-redundant-if
         for i in range(max(len(self), len(other))):
             left, right = list_to_packet(self.get(i)), list_to_packet(other.get(i))
-            print(f"Compare {left} vs {right}")
+            # print(f"Compare {left} vs {right}")
 
             if left is None and right is not None:
                 # The left packet is smaller
-                print("Left side ran out of items, so inputs are in the right order")
+                # print("Left side ran out of items, so inputs are in the right order")
                 return True
             elif right is None:
                 # The right packet is smaller
-                print("Right side ran out of items, so inputs are not in the right order")
+                # print("Right side ran out of items, so inputs are not in the right order")
                 return False
 
             if type(left) != type(right):
                 if isinstance(left, int):
-                    print(f"Mixed types; convert left to [{left}] and retry comparison")
+                    # print(f"Mixed types; convert left to [{left}] and retry comparison")
                     left = Packet([left])
                 elif isinstance(right, int):
-                    print(f"Mixed types; convert right to [{right}] and retry comparison")
+                    # print(f"Mixed types; convert right to [{right}] and retry comparison")
                     right = Packet([right])
 
             if left < right:
                 # The left packet is smaller
-                print(f"    Left side is smaller, so inputs are in the right order ({left} < {right})")
+                # print(f"    Left side is smaller, so inputs are in the right order ({left} < {right})")
                 return True
             elif left > right:
                 # The right packet is smaller
-                print(f"    Right side is smaller, so inputs are not in the right order ({left} > {right})")
+                # print(f"    Right side is smaller, so inputs are not in the right order ({left} > {right})")
                 return False
 
         return False
@@ -177,14 +178,44 @@ class PacketPairs:
         return index_sum
 
 
+class Packets:
+    def __init__(self, packets: list[Packet], divider_packets: list[Packet]):
+        self.packets = packets + divider_packets
+        self.divider_packets = divider_packets
+
+    @classmethod
+    def from_text(cls, packet_text: str, divider_packets: list[Packet]) -> Packets:
+        return cls(
+            [
+                Packet.from_text(packet)
+                for packet in packet_text.split("\n")
+                if packet != ""
+            ],
+            divider_packets
+        )
+
+    def find_distress_signal(self) -> int:
+        packets = sorted(self.packets)
+
+        return math.prod(
+            1 + packets.index(divider)
+            for divider in self.divider_packets
+        )
+
+
 def solution(input_: str) -> list[Any]:
     """
     Solve the day 13 problem!
     """
     packet_pairs = PacketPairs.from_text(input_.strip())
     # pprint.pprint(packet_pairs)
+    divider_packets = [
+        Packet.from_text("[[2]]"),
+        Packet.from_text("[[6]]"),
+    ]
+    packets = Packets.from_text(input_.strip(), divider_packets)
 
     return [
         packet_pairs.pairs_in_correct_order(),
-        0,
+        packets.find_distress_signal(),
     ]
