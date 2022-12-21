@@ -12,6 +12,11 @@ from typing import Any
 class Position(tuple):
     """
     A position on a 2-dimensional plane of integers.
+
+    Note: this violates the Liskov Substitution Principle. This should inherit
+    from some other class, try checking:
+
+    - https://docs.python.org/3/library/collections.abc.html
     """
     def __new__(cls, *args):
         return super(Position, cls).__new__(cls, args)

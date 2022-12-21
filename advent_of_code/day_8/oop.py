@@ -12,6 +12,11 @@ import advent_of_code.day_8.utils as utils
 class Position(tuple):
     """
     A position on a ZxZ plane.
+
+    Note: this violates the Liskov Substitution Principle. This should inherit
+    from some other class, try checking:
+
+    - https://docs.python.org/3/library/collections.abc.html
     """
     def __new__(cls, *iterable):
         return super().__new__(cls, iterable)
