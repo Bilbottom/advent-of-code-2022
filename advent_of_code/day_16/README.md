@@ -40,110 +40,110 @@ No valves are open.
 You open valve DD.
 
 == Minute 3 ==
-Valve DD is open, releasing 20 pressure.
+Valve DD is open, releasing 20 pressure for a total of 20.
 You move to valve CC.
 
 == Minute 4 ==
-Valve DD is open, releasing 20 pressure.
+Valve DD is open, releasing 20 pressure for a total of 40.
 You move to valve BB.
 
 == Minute 5 ==
-Valve DD is open, releasing 20 pressure.
+Valve DD is open, releasing 20 pressure for a total of 60.
 You open valve BB.
 
 == Minute 6 ==
-Valves BB and DD are open, releasing 33 pressure.
+Valves BB and DD are open, releasing 33 pressure for a total of 93.
 You move to valve AA.
 
 == Minute 7 ==
-Valves BB and DD are open, releasing 33 pressure.
+Valves BB and DD are open, releasing 33 pressure for a total of 126.
 You move to valve II.
 
 == Minute 8 ==
-Valves BB and DD are open, releasing 33 pressure.
+Valves BB and DD are open, releasing 33 pressure for a total of 159.
 You move to valve JJ.
 
 == Minute 9 ==
-Valves BB and DD are open, releasing 33 pressure.
+Valves BB and DD are open, releasing 33 pressure for a total of 192.
 You open valve JJ.
 
 == Minute 10 ==
-Valves BB, DD, and JJ are open, releasing 54 pressure.
+Valves BB, DD, and JJ are open, releasing 54 pressure for a total of 246.
 You move to valve II.
 
 == Minute 11 ==
-Valves BB, DD, and JJ are open, releasing 54 pressure.
+Valves BB, DD, and JJ are open, releasing 54 pressure for a total of 300.
 You move to valve AA.
 
 == Minute 12 ==
-Valves BB, DD, and JJ are open, releasing 54 pressure.
+Valves BB, DD, and JJ are open, releasing 54 pressure for a total of 354.
 You move to valve DD.
 
 == Minute 13 ==
-Valves BB, DD, and JJ are open, releasing 54 pressure.
+Valves BB, DD, and JJ are open, releasing 54 pressure for a total of 408.
 You move to valve EE.
 
 == Minute 14 ==
-Valves BB, DD, and JJ are open, releasing 54 pressure.
+Valves BB, DD, and JJ are open, releasing 54 pressure for a total of 462.
 You move to valve FF.
 
 == Minute 15 ==
-Valves BB, DD, and JJ are open, releasing 54 pressure.
+Valves BB, DD, and JJ are open, releasing 54 pressure for a total of 516.
 You move to valve GG.
 
 == Minute 16 ==
-Valves BB, DD, and JJ are open, releasing 54 pressure.
+Valves BB, DD, and JJ are open, releasing 54 pressure for a total of 570.
 You move to valve HH.
 
 == Minute 17 ==
-Valves BB, DD, and JJ are open, releasing 54 pressure.
+Valves BB, DD, and JJ are open, releasing 54 pressure for a total of 624.
 You open valve HH.
 
 == Minute 18 ==
-Valves BB, DD, HH, and JJ are open, releasing 76 pressure.
+Valves BB, DD, HH, and JJ are open, releasing 76 pressure for a total of 700.
 You move to valve GG.
 
 == Minute 19 ==
-Valves BB, DD, HH, and JJ are open, releasing 76 pressure.
+Valves BB, DD, HH, and JJ are open, releasing 76 pressure for a total of 776.
 You move to valve FF.
 
 == Minute 20 ==
-Valves BB, DD, HH, and JJ are open, releasing 76 pressure.
+Valves BB, DD, HH, and JJ are open, releasing 76 pressure for a total of 852.
 You move to valve EE.
 
 == Minute 21 ==
-Valves BB, DD, HH, and JJ are open, releasing 76 pressure.
+Valves BB, DD, HH, and JJ are open, releasing 76 pressure for a total of 928.
 You open valve EE.
 
 == Minute 22 ==
-Valves BB, DD, EE, HH, and JJ are open, releasing 79 pressure.
+Valves BB, DD, EE, HH, and JJ are open, releasing 79 pressure for a total of 1007.
 You move to valve DD.
 
 == Minute 23 ==
-Valves BB, DD, EE, HH, and JJ are open, releasing 79 pressure.
+Valves BB, DD, EE, HH, and JJ are open, releasing 79 pressure for a total of 1086.
 You move to valve CC.
 
 == Minute 24 ==
-Valves BB, DD, EE, HH, and JJ are open, releasing 79 pressure.
+Valves BB, DD, EE, HH, and JJ are open, releasing 79 pressure for a total of 1165.
 You open valve CC.
 
 == Minute 25 ==
-Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure for a total of 1246.
 
 == Minute 26 ==
-Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure for a total of 1327.
 
 == Minute 27 ==
-Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure for a total of 1408.
 
 == Minute 28 ==
-Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure for a total of 1489.
 
 == Minute 29 ==
-Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure for a total of 1570.
 
 == Minute 30 ==
-Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure.
+Valves BB, CC, DD, EE, HH, and JJ are open, releasing 81 pressure for a total of 1651.
 ```
 
 This approach lets you release the most pressure possible in 30 minutes with this valve layout, **1651**.

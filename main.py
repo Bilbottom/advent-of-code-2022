@@ -15,10 +15,10 @@ def main() -> None:
 
     advent_of_code.solutions.print_all_solutions(
         print_all=False,
-        use_sample=False,
+        use_sample=True,
         profile_solutions=False,
         repeat=10_000,
-        print_day=15,
+        print_day=16,
     )
 
 
