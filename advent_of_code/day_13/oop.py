@@ -2,9 +2,9 @@
 OOP solution for day 13.
 """
 from __future__ import annotations
+
 import collections.abc
 import math
-import pprint
 from typing import Any
 
 
@@ -208,7 +208,6 @@ def solution(input_: str) -> list[Any]:
     Solve the day 13 problem!
     """
     packet_pairs = PacketPairs.from_text(input_.strip())
-    # pprint.pprint(packet_pairs)
     divider_packets = [
         Packet.from_text("[[2]]"),
         Packet.from_text("[[6]]"),

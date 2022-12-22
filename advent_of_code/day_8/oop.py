@@ -7,49 +7,7 @@ import itertools
 from typing import Any
 
 import advent_of_code.day_8.utils as utils
-
-
-class Position(tuple):
-    """
-    A position on a ZxZ plane.
-
-    Note: this violates the Liskov Substitution Principle. This should inherit
-    from some other class, try checking:
-
-    - https://docs.python.org/3/library/collections.abc.html
-    """
-    def __new__(cls, *iterable):
-        return super().__new__(cls, iterable)
-
-    def __add__(self, other: Position | tuple[int, ]):
-        other = Position.from_tuple(other) if isinstance(other, tuple) else other
-        length = max(len(self), len(other))
-
-        return Position(
-            *(self.get(index_) + other.get(index_) for index_ in range(length))
-        )
-
-    def __radd__(self, other: Position | tuple[int, ]):
-        return self.__add__(other)
-
-    def get(self, index_: int) -> Any:
-        """
-        Get the value at the index, returning 0 if the index does not exist.
-        """
-        if index_ < 0 or not isinstance(index_, int):
-            raise IndexError(f"Position index {index_} is out of range")
-
-        try:
-            return self[index_]
-        except IndexError:
-            return 0
-
-    @classmethod
-    def from_tuple(cls, tuple_: tuple) -> Position:
-        """
-        Construct a Position from a tuple.
-        """
-        return cls(*iter(tuple_))
+from utils.geometry import Position
 
 
 class Tree:

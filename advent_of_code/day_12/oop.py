@@ -7,65 +7,13 @@ import re
 import time
 from typing import Any
 
+import utils.geometry
 
-# noinspection DuplicatedCode
-class Position(tuple):
+
+class Position(utils.geometry.Position):
     """
     A position on a 2-dimensional plane of integers.
-
-    Note: this violates the Liskov Substitution Principle. This should inherit
-    from some other class, try checking:
-
-    - https://docs.python.org/3/library/collections.abc.html
     """
-    def __new__(cls, *args):
-        return super(Position, cls).__new__(cls, args)
-
-    def __str__(self):
-        return super().__str__()
-
-    def __repr__(self):
-        return super().__repr__()
-
-    def __add__(self, other: Position | tuple[int, ]):
-        other = Position.from_tuple(other) if isinstance(other, tuple) else other
-        length = max(len(self), len(other))
-
-        return Position(
-            *(self.get(index_) + other.get(index_) for index_ in range(length))
-        )
-
-    def __radd__(self, other: Position | tuple[int, ]):
-        return self.__add__(other)
-
-    def __iadd__(self, other: Position | tuple[int, ]):
-        return self.__add__(other)
-
-    def __sub__(self, other):
-        other = Position.from_tuple(other) if isinstance(other, tuple) else other
-        length = max(len(self), len(other))
-
-        return Position(
-            *(self.get(index_) - other.get(index_) for index_ in range(length))
-        )
-
-    def __rsub__(self, other: Position | tuple[int, ]):
-        return self.__sub__(other)
-
-    def __isub__(self, other: Position | tuple[int, ]):
-        return self.__sub__(other)
-
-    def get(self, index_: int) -> Any:
-        """
-        Get the value at the index, returning 0 if the index does not exist.
-        """
-        if index_ < 0 or not isinstance(index_, int):
-            raise IndexError(f"Position index {index_} is out of range")
-
-        try:
-            return self[index_]
-        except IndexError:
-            return 0
 
     @property
     def neighbours(self) -> list[Position]:
@@ -75,12 +23,13 @@ class Position(tuple):
         """
         return [self + direction for direction in [UP, DOWN, LEFT, RIGHT]]
 
-    @classmethod
-    def from_tuple(cls, tuple_: tuple) -> Position:
-        """
-        Construct a Position from a tuple.
-        """
-        return cls(*iter(tuple_))
+
+# noinspection DuplicatedCode
+# Math co-ordinates
+UP = Position(0, 1)
+DOWN = Position(0, -1)
+LEFT = Position(-1, 0)
+RIGHT = Position(1, 0)
 
 
 class Height:
@@ -243,14 +192,6 @@ class Hill:
                                 return  # Hack to quit, not sure why the while loop doesn't exit
 
             step += 1
-
-
-# noinspection DuplicatedCode
-# Math co-ordinates
-UP = Position(0, 1)
-DOWN = Position(0, -1)
-LEFT = Position(-1, 0)
-RIGHT = Position(1, 0)
 
 
 def solution(input_: str) -> list[Any]:
