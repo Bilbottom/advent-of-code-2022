@@ -263,7 +263,6 @@ class SandCycle:
 
 
 # noinspection DuplicatedCode
-# Math co-ordinates
 UP = Position(0, -1)
 DOWN = Position(0, 1)
 LEFT = Position(-1, 0)

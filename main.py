@@ -15,7 +15,7 @@ def main() -> None:
 
     advent_of_code.solutions.print_all_solutions(
         print_all=False,
-        use_sample=True,
+        use_sample=False,
         profile_solutions=False,
         repeat=10_000,
         print_day=15,
