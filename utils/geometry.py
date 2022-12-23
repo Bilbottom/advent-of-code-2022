@@ -7,6 +7,10 @@ import itertools
 from typing import Any
 
 
+def _intify(value: float) -> float | int:
+    return int(value) if value.is_integer() else value
+
+
 class Position(tuple):
     """
     A position on a 2-dimensional plane of integers.
@@ -53,6 +57,34 @@ class Position(tuple):
     def __isub__(self, other: Position | tuple[int, ]):
         return self.__sub__(other)
 
+    def __mul__(self, other: int):
+        if not isinstance(other, int):
+            raise ValueError(f"Can't multiply a Position by an object of type {type(other)}")
+
+        return Position(
+            *(self[index_] * other for index_ in range(len(self)))
+        )
+
+    def __rmul__(self, other: int):
+        return self.__mul__(other)
+
+    def __imul__(self, other: int):
+        return self.__mul__(other)
+
+    def __truediv__(self, other: int):
+        if not isinstance(other, int):
+            raise ValueError(f"Can't divide a Position by an object of type {type(other)}")
+
+        return Position(
+            *(_intify(self[index_] / other) for index_ in range(len(self)))
+        )
+
+    def __rtruediv__(self, other: int):
+        return self.__truediv__(other)
+
+    def __itruediv__(self, other: int):
+        return self.__truediv__(other)
+
     def get(self, index_: int) -> Any:
         """
         Get the value at the index, returning 0 if the index does not exist.
@@ -88,6 +120,9 @@ def manhattan_distance(x: Position, y: Position) -> int:
 
 
 class Area:
+    """
+    An area, which is a set of positions.
+    """
     def __init__(self, position_1: Position, position_2: Position):
         self.position_1 = position_1
         self.position_2 = position_2
