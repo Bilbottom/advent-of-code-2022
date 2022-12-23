@@ -5,7 +5,6 @@ from __future__ import annotations
 
 import copy
 import re
-import time
 from typing import Any
 
 
@@ -22,26 +21,9 @@ class Valve:
     def __repr__(self):
         return self.__str__()
 
-    def __deepcopy__(self, memo: dict = None):
-        """
-        Copied from:
-
-        - https://stackoverflow.com/a/15774013/8213085
-        """
-        cls = self.__class__
-        result = cls.__new__(cls)
-        memo[id(self)] = result
-        for k, v in self.__dict__.items():
-            setattr(result, k, copy.deepcopy(v, memo))
-
-        return result
-
     @property
     def open_icon(self) -> str:
-        return {
-            True: "◉",
-            False: "○",
-        }[self.open]
+        return {True: "◉", False: "○"}[self.open]
 
 
 class Valves:
@@ -63,20 +45,6 @@ class Valves:
             if valve.name == item:
                 return valve
 
-    def __deepcopy__(self, memo: dict = None):
-        """
-        Copied from:
-
-        - https://stackoverflow.com/a/15774013/8213085
-        """
-        cls = self.__class__
-        result = cls.__new__(cls)
-        memo[id(self)] = result
-        for k, v in self.__dict__.items():
-            setattr(result, k, copy.deepcopy(v, memo))
-
-        return result
-
     @classmethod
     def from_text(cls, text: str) -> Valves:
         items = [
@@ -95,15 +63,15 @@ class Valves:
 
 
 class Route:
-    def __init__(self, valves: Valves):
-        self.valves = valves
-        self.current_valve = self.valves["AA"]
+    def __init__(self, input_: str):
+        self.valves = Valves.from_text(input_)
+        self._current_valve = "AA"
         self.current_pressure = 0
         self.open_valves = []
+        self.id = "1"
 
     def __str__(self):
-        return f"'{self.current_valve.name}' {self.current_valve.open_icon}:" \
-               f" {self.current_pressure} [{' '.join(v.name for v in self.open_valves)}]"
+        return f"'{self.current_valve.name}' {self.current_valve.open_icon}: {self.current_pressure}"
 
     def __repr__(self):
         return self.__str__()
@@ -120,19 +88,9 @@ class Route:
     def __ge__(self, other: Route):
         return self.current_pressure >= other.current_pressure
 
-    def __deepcopy__(self, memo: dict = None):
-        """
-        Copied from:
-
-        - https://stackoverflow.com/a/15774013/8213085
-        """
-        cls = self.__class__
-        result = cls.__new__(cls)
-        memo[id(self)] = result
-        for k, v in self.__dict__.items():
-            setattr(result, k, copy.deepcopy(v, memo))
-
-        return result
+    @property
+    def current_valve(self):
+        return self.valves[self._current_valve]
 
     @property
     def open_valve(self) -> bool:
@@ -146,15 +104,12 @@ class Route:
         for valve in self.open_valves:
             self.current_pressure += valve.flow_rate
 
-    def _resolve_action(self, next_valve: Valve) -> None:
-        # Open current valve
-        if self.open_valve:
-            print(f"Opening valve {self.current_valve}")
+    def _resolve_action(self, next_valve: Valve | None) -> None:
+        if next_valve:
+            self._current_valve = next_valve.name
+        else:
             self.current_valve.open = True
             self.open_valves.append(self.current_valve)
-        # Travel to other valve
-        else:
-            self.current_valve = next_valve
 
     def run(self, next_valve: Valve | None) -> None:
         assert self.current_valve in self.open_valves if self.current_valve.open else True
@@ -167,42 +122,41 @@ class Cycles:
         self._input = input_
         self.total_time = total_time
         self.current_time = 0
-        self.routes: list[Route] = [Route(Valves.from_text(input_))]
+        self.routes: list[Route] = [Route(input_)]
 
     def run(self):
-        while self.current_time <= self.total_time:
-            print(f"Running minute {1 + self.current_time} with {len(self.routes)} routes")
+        while self.current_time < self.total_time:
+            print(f"== Running minute {1 + self.current_time} with {len(self.routes)} routes ==")
 
             extra_routes = []
-            for route in self.routes.copy():
+            remove_routes = []
+            for route in self.routes:
+                for idx, next_valve in enumerate(route.leads_to, start=1):
+                    new_route = copy.deepcopy(route)
+                    new_route.run(next_valve=next_valve)
+                    new_route.id += str(idx)
+                    extra_routes.append(new_route)
+
                 if route.open_valve:
                     route.run(next_valve=None)
+                    route.id += "0"
                 else:
-                    self.routes.remove(route)
-                    for next_valve in route.leads_to:
-                        new_route = copy.deepcopy(route)
-                        new_route.run(next_valve=next_valve)
-                        extra_routes.append(new_route)
+                    remove_routes.append(route)
 
+            [self.routes.remove(rt) for rt in remove_routes]
             self.routes += extra_routes
-            self.routes = sorted(self.routes)[-100:]
+            self.routes = sorted(self.routes)[-5000:]  # Limit (arbitrarily) otherwise takes way too long
             self.current_time += 1
-
-            print(self.routes)
-            print()
-            time.sleep(1)
 
 
 def solution(input_: str) -> list[Any]:
     """
     Solve the day 16 problem!
     """
-    print(input_)
     cycles = Cycles(input_=input_.strip(), total_time=30)
     cycles.run()
 
-    quit()
     return [
-        0,
+        max(rt.current_pressure for rt in cycles.routes),
         0,
     ]
